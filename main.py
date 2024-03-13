@@ -49,7 +49,7 @@ def trace(a):
     print(sum)
 #trace(a)
 
-def max(a,b,c):
+def maxx(a,b,c):
     if a>=b:
         if a>=c:
             print(f"le max est {a}")
@@ -93,7 +93,7 @@ def multMat(a,t):
 def det2X2(a):
     return a[0][0]*a[1][1]-a[1][2]*a[1][0]
 
-multiplier3(a,b)
+
 
 
     

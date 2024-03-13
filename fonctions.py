@@ -2,6 +2,10 @@
 
 import random
 
+from sympy import N
+
+from main import afficher, multiplier2
+
 
 def FINDLARGESTELEMENT(liste):
     """Retourne le plus grand élément de la liste fournie."""
@@ -322,7 +326,7 @@ def MERGE(liste1, liste2):
 
 #print(MERGE(l1,l2))
 
-#2.22
+#3.2
 
 def determinant_gauss(matrice):
     """Calcule le déterminant d'une matrice en utilisant la méthode de Gauss."""
@@ -343,14 +347,56 @@ def determinant_gauss(matrice):
 
 # Exemple d'utilisation
 matrice_exemple = [
-    [2, -1, 0],
+    [2, -1, 8],
     [-1, 2, -1],
-    [0, -1, 2]
+    [11, -1, 2]
 ]
+vecteur_exemple=[1,2,3]
 #print("Le déterminant de la matrice est :", determinant_gauss(matrice_exemple))
 
+def mult(A,x):
+    return [a * x for a in A]
+        
+def minus(A,B):
+    return [a - b for a, b in zip(A, B)]
+def RESOUDRESYSTEMELINEAIRE(A,B):
+    """mon algo resous un systeme lineaire
 
+    Args:
+        A (_matrice_): la matrice des coef
+        B (_matrice_): la matrice des resultats
+    """
+    n=len(A)
+    x=[0 for i in range(n)]
+    Gp=0
+    #je fais l'elimination
+    for p in range(n-1):
+        
+        for k in range(p+1,n):
+            
+            #A[k]=A[k]-A[p]*(A[k][p]/A[p][p])
+            if A[p][p]==0:
+                print('pas de solution unique')
+                return
+            B[k]=B[k]-(A[k][p]/A[p][p])*B[p]
+            A[k]=minus(A[k],mult(A[p],(A[k][p]/A[p][p])))
+           #print((A[k][p]))
+ 
+    x[n-1]=B[n-1]
+    #print(B)
+    for p in range(n-1,-1,-1):
+        #print(p)
+        
+        for k in range(p+1,n):
+            Gp=Gp+A[p][k]*x[k]
+            
+        x[p]=(B[p]-Gp)/A[p][p]
+        Gp=0
 
+    afficher(x)      
+    #afficher(B)
+            
+RESOUDRESYSTEMELINEAIRE(matrice_exemple, mult(vecteur_exemple,51*17))
 
 
 
