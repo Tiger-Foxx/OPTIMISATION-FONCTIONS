@@ -1,5 +1,6 @@
 # 2.2
 
+import copy
 import random
 
 from sympy import N
@@ -396,7 +397,57 @@ def RESOUDRESYSTEMELINEAIRE(A,B):
     afficher(x)      
     #afficher(B)
             
-RESOUDRESYSTEMELINEAIRE(matrice_exemple, mult(vecteur_exemple,51*17))
+#RESOUDRESYSTEMELINEAIRE(matrice_exemple, mult(vecteur_exemple,51*17))
+
+def TROUVERMATRICEINVERSE(A):
+    # je procede d'abord a la construction de la matrice identite
+    tailleA=len(A)
+    
+    Id=[[0.0 for _ in range(tailleA)] for __ in range(tailleA)]
+    for i in range(tailleA) :
+        Id[i][i]=1
+    
+    # MAINTENANT LE CALCULE PEUT COMMENCER
+    
+    # on va triangulariser la matrice de gauche
+    for k in range(tailleA-1):
+        
+        for n in range(k+1,tailleA):
+            
+            #A[k]=A[k]-A[p]*(A[k][p]/A[p][p])
+            if A[k][k]==0:
+                print('pas inversible')
+                return
+            
+            Id[n]=minus(Id[n],mult(Id[k],(A[n][k]/A[k][k])))
+            A[n]=minus(A[n],mult(A[k],(A[n][k]/A[k][k])))
+            
+           #print((A[k][p])) 
+    # ON DIAGONALISE EN TRIANGULARISANT EN SENS INVERSE
+    for k in range(tailleA-1,0,-1):
+        
+        for n in range(k-1,-1,-1):
+            
+            #A[k]=A[k]-A[p]*(A[k][p]/A[p][p])
+            if A[k][k]==0:
+                print('pas inversible')
+                return
+            Id[n]=minus(Id[n],mult(Id[k],(A[n][k]/A[k][k])))
+            A[n]=minus(A[n],mult(A[k],(A[n][k]/A[k][k])))
+           
+           #print((A[k][p])) 
+    # ON TRANSFORME EN L'IDENTITE
+    for k in range(tailleA):
+        A[k]=mult(A[k],1/(A[k][k]))
+        Id[k]=mult(Id[k],1/(Id[k][k]))
+    
+    #afficher(Id)
+    return Id
+
+
+TROUVERMATRICEINVERSE(matrice_exemple)
+multiplier2(TROUVERMATRICEINVERSE(matrice_exemple),matrice_exemple)
+
 
 
 
