@@ -36,7 +36,7 @@ def multiplier3(a,b):
            x = x + a[i][k]*b[k][j]
            #print(x,end=" ")
           c[i][j]=x
-    afficher(c)
+    
     return c
         #print("\n")
 
